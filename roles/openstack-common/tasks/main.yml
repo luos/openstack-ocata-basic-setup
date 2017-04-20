@@ -1,0 +1,14 @@
+---
+  - name: Install software-properties-common
+    command: apt install software-properties-common
+    become: true
+
+  - name: Add apt repo cloud-archive:ocata
+    command: add-apt-repository cloud-archive:ocata
+    become: true
+
+  - name: Install openstack client
+    package:
+      name: python-openstackclient
+      state: present
+    become: true

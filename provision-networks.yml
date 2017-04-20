@@ -1,0 +1,29 @@
+---
+
+  - name: Network Setup
+    hosts: nodes
+    vars:
+      nodes:
+        node-1:
+          interfaces:
+            ens4:
+              address: 10.199.0.11
+              netmask: 255.255.255.0
+              gateway: 10.199.0.1
+            ens5:
+              address: 10.200.0.5
+              netmask: 255.255.255.0
+              gateway: 10.200.0.1
+        node-2:
+          interfaces:
+            ens4:
+              address: 10.199.0.7
+              netmask: 255.255.255.0
+              gateway: 10.199.0.1
+            ens8:
+              address: 10.200.0.9
+              netmask: 255.255.255.0
+              gateway: 10.200.0.1
+
+    roles:
+      - networks

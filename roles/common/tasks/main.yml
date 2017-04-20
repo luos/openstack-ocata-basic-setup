@@ -1,0 +1,26 @@
+---
+
+  - name: Make sure hostname is set to localhost
+    lineinfile:
+      dest: /etc/hosts
+      line: "{{ item }}"
+    become: true
+    with_items:
+      - "127.0.0.1 {{ inventory_hostname }}"
+      #- "{{ nodes["node-1"][\"interfaces\"][\"ens4\"][\"address\"] }} controller"
+     # - "{{ nodes[\"node-2\"][\"interfaces\"][\"ens4\"][\"address\"] }} compute1"
+
+  - name: Apt Update
+    apt: update_cache=true
+    become: true
+
+  - name: Install basic packages
+    package:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - vim
+      - tmux
+      - htop
+      - mtr
+    become: true

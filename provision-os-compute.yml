@@ -1,0 +1,10 @@
+---
+  - hosts: all
+
+  - name: Basic setup
+    hosts: all
+    roles: 
+      - common
+      - openstack-common
+      - openstack-compute
+

@@ -1,0 +1,29 @@
+---
+  - name: Install packages needed by openstack
+    package: 
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - mariadb-server
+      - python-pymysql
+      - rabbitmq-server
+      - memcached
+      - python-memcache
+      - keystone
+      - glance
+      - nova-api 
+      - nova-conductor 
+      - nova-consoleauth
+      - nova-novncproxy 
+      - nova-scheduler 
+      - nova-placement-api
+      - neutron-server
+      - neutron-plugin-ml2
+      - neutron-linuxbridge-agent 
+      - neutron-dhcp-agent 
+      - neutron-metadata-agent
+      - neutron-l3-agent
+      - openstack-dashboard
+      - heat-api
+      - heat-api-cfn 
+      - heat-engine

@@ -1,0 +1,23 @@
+---
+  - name: Add Juju PPA
+    apt_repository:
+      repo: ppa:juju/stable
+      update_cache: yes
+    become: true
+
+  - name: Install required packages
+    apt:
+      name: "{{ item }}"
+    with_items: 
+      - juju 
+      - lxd 
+      - zfsutils-linux
+    become: true
+
+  - name: Lxd Init
+    shell: lxd init --auto 
+    become: true
+
+    # this will fail, run sudo dpkg-reconfigure -p medium lxd, do not enable ipv6
+  - name: Juju Bootstrap
+    shell: juju bootstrap localhost lxd-test

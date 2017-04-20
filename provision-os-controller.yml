@@ -1,0 +1,17 @@
+---
+  - hosts: all
+    gather_facts: False
+    
+    tasks:
+    - name: install python 2
+      raw: test -e /usr/bin/python #|| (apt -y update && apt install -y python)
+      become: true
+
+  - name: Basic setup
+    hosts: all
+    become: True
+    roles: 
+      - common
+      - openstack-common
+      - openstack-controller
+

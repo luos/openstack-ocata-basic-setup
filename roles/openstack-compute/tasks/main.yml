@@ -1,0 +1,11 @@
+---
+  - name: Install nova compute 
+    package:
+      name: nova-compute
+      state: present
+    become: true
+
+  - name: Install nova linuxbridge agent
+    package:
+      name: neutron-linuxbridge-agent
+      state: present

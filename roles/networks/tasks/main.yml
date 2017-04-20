@@ -1,0 +1,28 @@
+---
+  - name: Remove previous stuff
+    shell: rm /etc/network/interfaces.d/60-*
+    become: true
+    ignore_errors: true
+
+  - name: Copy networking files
+    template:
+      src: 60-networks-setup.cfg.j2
+      dest: /etc/network/interfaces.d/60-{{ item.key }}-network-setup.cfg
+    with_dict: "{{nodes[inventory_hostname][\"interfaces\"]}}"
+    become: true
+
+  - name: Make sure default route is correct for internet
+    lineinfile:
+      insertafter: "iface ens3 inet dhcp"
+      line: "post-up route add default gw 172.16.0.1"
+      dest: /etc/network/interfaces.d/50-cloud-init.cfg
+    become: true
+
+  - name: Reload network stuff
+    shell: service networking reload
+    become: true
+
+  #- name: Reboot
+  #  shell: ( sleep 5 && reboot  ) &
+  #  become: true
+  #  ignore_errors: true
